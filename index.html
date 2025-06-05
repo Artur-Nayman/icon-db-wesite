@@ -1,774 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artur's Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select an icon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333446;
+            padding: 20px;
+            margin: 0;
+        }
 
-  <!--
-    - favicon
-  -->
-  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #7F8CAA;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
+        h1 {
+            text-align: center;
+            color: #fff;
+        }
 
-  <!--
-    - google font link
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        .icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
 
+        .icon {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            width: 120px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .icon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .icon p {
+            margin: 10px 0 5px;
+            font-size: 14px;
+            word-break: break-word;
+        }
+
+        .icon button {
+            padding: 6px 10px;
+            font-size: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .icon button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
-
 <body>
-
-  <!--
-    - #MAIN
-  -->
-
-  <main>
-
-    <!--
-      - #SIDEBAR
-    -->
-
-    <aside class="sidebar" data-sidebar>
-
-      <div class="sidebar-info">
-
-        <figure class="avatar-box">
-          <img src="./assets/images/my-avatar.png" alt="Richard hanrick" width="80">
-        </figure>
-
-        <div class="info-content">
-          <h1 class="name" title="Richard hanrick">Artur Nayman</h1>
-
-          <p class="title">Web & Software Developer</p>
+    <div class="container">
+        <h1>Оберіть іконку з каталогу</h1>
+        <div class="icons">
+            {% for icon in icons %}
+            <div class="icon">
+                <img src="{{ url_for('static', filename='icons/' + icon) }}" alt="{{ icon }}">
+                <p>{{ icon }}</p>
+                <button onclick="installIcon('{{ icon }}')">Встановити</button>
+            </div>
+            {% endfor %}
         </div>
-
-        <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
-
-          <ion-icon name="chevron-down"></ion-icon>
-        </button>
-
-      </div>
-
-      <div class="sidebar-info_more">
-
-        <div class="separator"></div>
-
-        <ul class="contacts-list">
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Email</p>
-
-              <a href="mailto:arturnaiman@gmail.com" class="contact-link">arturnaiman@gmail.com</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="phone-portrait-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Phone</p>
-
-              <a href="tel:+12133522795" class="contact-link">+358 40 414 8266</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="calendar-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Birthday</p>
-
-              <time datetime="1982-06-23">October 9, 2002</time>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Location</p>
-
-              <address>Turku, Finland</address>
-            </div>
-
-          </li>
-
-        </ul>
-
-        <div class="separator"></div>
-
-        <ul class="social-list">
-
-          <li class="social-item">
-            <a href="https://github.com/Artur-Nayman" class="social-link">
-              <ion-icon name="logo-github"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="https://www.linkedin.com/in/artur-nayman-98ba12200/" class="social-link">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="https://www.instagram.com/_artur_2002_/" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-
-    </aside>
-
-    <!--
-      - #main-content
-    -->
-
-    <div class="main-content">
-
-      <!--
-        - #NAVBAR
-      -->
-
-      <nav class="navbar">
-
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>Popular</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Games</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Browsers</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Programs</button>
-          </li>
-
-        </ul>
-
-      </nav>
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about  active" data-page="about">
-
-        <header>
-          <h2 class="h2 article-title">About me</h2>
-        </header>
-
-        <section class="about-text">
-          <p>
-            I am a software developer with experience in WordPress, as well as programming in Python, JavaScript, C#,
-            and other languages. Currently based in Turku, Finland, I specialize in developing websites, tools,
-            and process automation solutions. My focus is on creating efficient, fast, and user-centric
-            web solutions that meet modern standards.
-          </p>
-
-        </section>
-        <!--
-          - service
-        -->
-
-        <!--Technologies-->
-        <section class="testimonials">
-          <h1>Каталог іконок</h1>
-  <div class="icon-container" id="iconContainer">
-    <!-- Іконки будуть додані через JS -->
-  </div>
-
-  <script>
-    // Список іконок — зміни під себе
-    const iconList = [
-      'folder.ico',
-      'game.ico',
-      'tools.ico',
-      'music.ico'
-    ];
-
-    const githubBaseURL = 'https://yourusername.github.io/icon-catalog/icons/'; // ← заміни на свій
-
-    const container = document.getElementById('iconContainer');
-
-    iconList.forEach(icon => {
-      const card = document.createElement('div');
-      card.className = 'icon-card';
-
-      const img = document.createElement('img');
-      img.src = githubBaseURL + icon;
-      img.alt = icon;
-
-      const btn = document.createElement('button');
-      btn.textContent = 'Встановити';
-      btn.className = 'install-btn';
-      btn.onclick = () => installIcon(icon);
-
-      card.appendChild(img);
-      card.appendChild(document.createElement('br'));
-      card.appendChild(document.createTextNode(icon));
-      card.appendChild(document.createElement('br'));
-      card.appendChild(btn);
-
-      container.appendChild(card);
-    });
-
-    function installIcon(iconName) {
-      const iconURL = githubBaseURL + iconName;
-
-      fetch('http://localhost:5000/download_icon', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ icon_url: iconURL })
-      })
-      .then(res => res.json())
-      .then(data => alert(data.message))
-      .catch(err => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
-    }
-  </script>
-
-        </section>
-
-
-      </article>
-
-      <!--
-        - #RESUME
-      -->
-
-      <article class="resume" data-page="resume">
-
-        <header>
-          <h2 class="h2 article-title">Resume</h2>
-        </header>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Education</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Turku University of Applied Sciences</h4>
-
-              <span>2023 — Present</span>
-
-              <p class="timeline-text">
-                Specialization: Application Development and Project Management (SEPM)
-                During my studies, I have participated in several projects, one of which was the creation of the website for
-                theFirma.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Information and Communication Technology, TAI</h4>
-
-              <span>2019 — 2022</span>
-
-              <p class="timeline-text">
-                During my studies, I participated in the following events:
-                <br>• Game Programming Competition BIT-1
-                <br>• Erasmus+ supported AI competition in Lithuania
-                <br>• Hanako Network remote exchange program (Finland–Japan)
-                <br>• Open doors event
-                <br>• Robotics exhibition at TAI
-
-              </p>
-
-            </li>
-
-
-          </ol>
-
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Experience</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Upwork Freelancer</h4>
-
-              <span>2025 - Present</span>
-
-              <p class="timeline-text">
-                Work as a freelancer with a focus on website development.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Interpreter, Youpret </h4>
-
-              <span>Nov 2023 — Present</span>
-
-              <p class="timeline-text">
-                Ukrainian - Finnish language interpreter My clients have included Kela, TE-offce, reception centers,
-                hospitals, and social services
-              </p>
-
-            </li>
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">IT Manager/Technician, Albatros Ry</h4>
-
-              <span>Aug 2018 - Aug 2022</span>
-
-              <p class="timeline-text">
-                Creating and maintaining WordPress-based websites, including content management and technical support.
-                Additionally, I handled lighting and sound engineering for various projects
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="skill">
-
-          <h3 class="h3 skills-title">Languages</h3>
-
-          <ul class="skills-list content-card">
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">English</h5>
-                <data value="65">Advanced</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 65%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Finish</h5>
-                <data value="90">Fluent</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 90%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Ukrainian</h5>
-                <data value="100">Native</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Russian</h5>
-                <data value="99">Native</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-        <br>
-        <section class="skill">
-
-          <h3 class="h3 skills-title">My skills</h3>
-
-          <ul class="skills-list content-card">
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Web development</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Automatization</h5>
-                <data value="70">70%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Project Management</h5>
-                <data value="60">60%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 60%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">WordPress</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-      <!--
-        - #PORTFOLIO
-      -->
-
-      <article class="portfolio" data-page="portfolio">
-
-        <header>
-          <h2 class="h2 article-title">Portfolio</h2>
-        </header>
-
-        <section class="projects">
-
-          <ul class="filter-list">
-
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Web Development</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Automatization</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Other</button>
-            </li>
-
-          </ul>
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
-            </button>
-
-            <ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Web Development</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Automatization</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Other</button>
-              </li>
-
-            </ul>
-
-          </div>
-
-          <ul class="project-list">
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="https://hxamedia.fi">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-1.png" alt="hxamedia" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">HXAmedia</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="https://thefirma.fi">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-2.png" alt="thefirma" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">theFirma</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="automatization">
-              <a href="https://github.com/Artur-Nayman/Playlist_Scraper">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-4.png" alt="playlist scraper" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Playlist Scraper</h3>
-
-                <p class="project-category">Automatization</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="automatization">
-              <a href="https://github.com/Artur-Nayman/Auto_File_Sorter">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-5.png" alt="afs" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">AFS</h3>
-
-                <p class="project-category">Automatization</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="automatization">
-              <a href="https://github.com/Artur-Nayman/TranslitMapper">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-6.png" alt="translitmapper" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">TranslitMapper</h3>
-
-                <p class="project-category">Automatization</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="other">
-              <a href="https://github.com/Artur-Nayman/telebot_project2.0">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-7.png" alt="telegram bot" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Telegram Bot</h3>
-
-                <p class="project-category">Other</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="other">
-              <a href="https://github.com/Artur-Nayman/Weather_API_V1.0">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-9.png" alt="weather api" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Weather API</h3>
-
-                <p class="project-category">Other</p>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-      <!--
-        - #CONTACT
-      -->
-
-      <article class="contact" data-page="contact">
-
-        <header>
-          <h2 class="h2 article-title">Contact</h2>
-        </header>
-
-        <section class="mapbox" data-mapbox>
-          <figure>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d151598.03697264168!2d22.224209149999997!3d60.431914150000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468c7584818edbbb%3A0x400b551554bc200!2z0KLRg9GA0LrRgw!5e1!3m2!1suk!2sfi!4v1746701754859!5m2!1suk!2sfi"
-              width="400" height="300" loading="lazy">
-            </iframe>
-          </figure>
-        </section>
-
-        <section class="contact-form">
-
-          <h3 class="h3 form-title">Contact Form</h3>
-
-          <form action="arturnaiman@gmail.com" class="form" data-form>
-
-            <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-            </div>
-
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
-
-            <button class="form-btn" type="submit" disabled data-form-btn>
-              <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
-            </button>
-
-          </form>
-
-        </section>
-
-      </article>
-
     </div>
 
-  </main>
+    <script>
+        function installIcon(iconName) {
+            const shortcutName = prompt("Введіть ім’я ярлика для встановлення:");
+            if (!shortcutName) return;
 
-  <!--
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
-
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
+            fetch('/install_icon', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    icon: iconName,
+                    shortcut: shortcutName
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Іконку встановлено успішно!");
+                } else {
+                    alert("Помилка встановлення: " + data.error);
+                }
+            })
+            .catch(err => {
+                alert("Помилка з'єднання з сервером.");
+            });
+        }
+    </script>
 </body>
-
 </html>
