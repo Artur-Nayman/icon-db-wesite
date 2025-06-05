@@ -211,159 +211,59 @@
 
         <!--Technologies-->
         <section class="testimonials">
+          <h1>Каталог іконок</h1>
+  <div class="icon-container" id="iconContainer">
+    <!-- Іконки будуть додані через JS -->
+  </div>
 
-          <h3 class="h3 testimonials-title">Technologies</h3>
+  <script>
+    // Список іконок — зміни під себе
+    const iconList = [
+      'folder.ico',
+      'game.ico',
+      'tools.ico',
+      'music.ico'
+    ];
 
-          <ul class="testimonials-list has-scrollbar">
-            <!-- API -->
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
+    const githubBaseURL = 'https://yourusername.github.io/icon-catalog/icons/'; // ← заміни на свій
 
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="60" data-testimonials-avatar>
-                </figure>
+    const container = document.getElementById('iconContainer');
 
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>API</h4>
+    iconList.forEach(icon => {
+      const card = document.createElement('div');
+      card.className = 'icon-card';
 
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    <strong>Telegram Bot</strong> <br>
-                      <strong>Purpose of using the API:</strong> To connect your program with the Telegram platform so it can send and receive messages.<br>
-                      <strong>How the API was used:</strong><br>
-                      • Fetching updates (messages) from users.<br>
-                      • Sending responses or messages back to chats.<br>
-                      • Utilized the Telegram Bot API via HTTP requests or Python libraries such as python-telegram-bot or telebot.<br>
-                    <br>
-                    <strong>Weather API Project</strong><br>
-                      Purpose of using the API: To retrieve real-time weather data.<br>
-                      <strong>How the API was used:</strong><br>
-                      • Sending requests to an external service (e.g., OpenWeatherMap API).<br>
-                      • Receiving responses in JSON format containing temperature, humidity, weather conditions, etc.<br>
-                      • Processing and displaying that weather data in my application (e.g., in a chatbot or a simple web app).<br>
-                  </p>
-                </div>
-              </div>
-            </li>
-            <!-- Web Scraping -->
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
+      const img = document.createElement('img');
+      img.src = githubBaseURL + icon;
+      img.alt = icon;
 
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/search.svg" alt="Jessica miller" width="60" data-testimonials-avatar>
-                </figure>
+      const btn = document.createElement('button');
+      btn.textContent = 'Встановити';
+      btn.className = 'install-btn';
+      btn.onclick = () => installIcon(icon);
 
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Web Scraping</h4>
+      card.appendChild(img);
+      card.appendChild(document.createElement('br'));
+      card.appendChild(document.createTextNode(icon));
+      card.appendChild(document.createElement('br'));
+      card.appendChild(btn);
 
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    <strong>Telegram Bot (Web Scraping Eneba)</strong>
-                    <br>I created a Telegram bot that uses web scraping to collect product data (such as product name, price, and region) from the Eneba webshop. The bot scrapes this information directly from the website, making it easier for users to get the details without browsing the store manually.
+      container.appendChild(card);
+    });
 
-                    <br><strong>Playlist Scraper (Web Scraping Spotify)</strong>
-                    <br>I used web scraping to collect song names from Spotify playlists. I extracted data directly from the website (or page source), which allowed me to automate gathering song information for further analysis or use.
-                    <br><br>Web scraping enables me to extract data directly from websites by parsing their HTML structure, making it useful when APIs are not available or when I need more control over the data extraction process.
-                  </p>
-                </div>
+    function installIcon(iconName) {
+      const iconURL = githubBaseURL + iconName;
 
-              </div>
-            </li>
-            <!-- Redis -->
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-3.png" alt="Emily evans" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Redis</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    <br>I used Redis for caching weather data for 10 minutes. This helped to optimize repeated queries by storing the weather data temporarily, so that subsequent requests for the same data within the 10-minute window wouldn’t require a new fetch from the weather API, improving performance. The cache can be removed if it’s no longer needed.
-                    <br>
-                    <br>Redis is great for use cases like this, where fast, in-memory data storage is needed to improve response times and reduce the load on external services.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-            <!-- HTML, CSS, JavaScript -->
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/JS.svg" alt="Henry william" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>HTML, CSS, JavaScript</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    I used MySQL to add a database to the Telegram bot. This allowed me to store and organize the data more efficiently, making it easier to sort and query the information, such as product details or user interactions. Using MySQL helped streamline data management and ensured the bot could handle and retrieve information quickly.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-            <!-- Pyhon -->
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/python.svg" alt="Henry william" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Python</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Used <strong>Python</strong> for building Telegram bots, automation scripts, web scraping, and API integration.
-                    It has been my main language for backend logic and data handling across multiple personal and freelance projects.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-            <!-- MySQL -->
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/mysql.svg" alt="Henry william" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>MySQL</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Worked with <strong>MySQL</strong> for database management in both WordPress and custom backend projects.
-                    Created queries, structured databases, and ensured secure data storage and retrieval.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-            <!-- PHP -->
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/php.svg" alt="Henry william" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>PHP</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Used <strong>PHP</strong> mainly in WordPress development for creating themes, customizing plugins,
-                    and handling server-side logic.
-                    Also used it to build dynamic components and integrate backend logic into existing CMS projects.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-          </ul>
+      fetch('http://localhost:5000/download_icon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ icon_url: iconURL })
+      })
+      .then(res => res.json())
+      .then(data => alert(data.message))
+      .catch(err => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
+    }
+  </script>
 
         </section>
 
