@@ -1,0 +1,28 @@
+name: Update icons.json
+
+on:
+  push:
+    paths:
+      - 'icons/**'
+      - '.github/workflows/update-icons.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate icons.json
+        run: |
+          ICONS=$(ls icons | grep '\.ico$' | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "$ICONS" > icons/icons.json
+
+      - name: Commit and push icons.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add icons/icons.json
+          git commit -m "🔄 Автоматичне оновлення icons.json" || echo "No changes"
+          git push

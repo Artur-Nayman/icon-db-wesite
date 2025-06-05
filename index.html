@@ -135,31 +135,13 @@
       </div>
     </div>
   </div>
+<script>
+const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
 
-  <script>
-const iconList = [
-  'fly.ico',
-  'icons8-telegram-512.ico',
-  'notes.ico',
-  'nvdia.ico',
-  'settings.ico',
-  'somethong.ico',
-  'spotyif.ico',
-  'telefram-dark.ico',
-  'telegram (2).ico',
-  'telegram.ico',
-  'telegram-minimalistic.ico',
-  'terminal.ico',
-  'tg-dark-circle.ico',
-  'trello.ico',
-  'youtube.ico'
-];
-
-
-    const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
-
+fetch(githubBaseURL + 'icons.json')
+  .then(res => res.json())
+  .then(iconList => {
     const container = document.getElementById('iconContainer');
-
     iconList.forEach(icon => {
       const card = document.createElement('div');
       card.className = 'icon-card';
@@ -181,19 +163,26 @@ const iconList = [
       card.appendChild(btn);
       container.appendChild(card);
     });
+  })
+  .catch(err => {
+    alert("❌ Не вдалося отримати список іконок.");
+    console.error(err);
+  });
 
-    function installIcon(iconName) {
-      const iconURL = githubBaseURL + iconName;
+function installIcon(iconName) {
+  const iconURL = githubBaseURL + iconName;
 
-      fetch('http://localhost:5000/download_icon', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ icon_url: iconURL })
-      })
-      .then(res => res.json())
-      .then(data => alert(data.message))
-      .catch(err => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
-    }
-  </script>
+  fetch('http://localhost:5000/download_icon', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ icon_url: iconURL })
+  })
+  .then(res => res.json())
+  .then(data => alert(data.message))
+  .catch(err => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
+}
+</script>
+
+
 </body>
 </html>
