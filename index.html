@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Каталог іконок</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+    .icon-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .icon-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      width: 120px;
+    }
+    .icon-card img {
+      width: 48px;
+      height: 48px;
+    }
+    .install-btn {
+      margin-top: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .install-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Каталог іконок</h1>
+  <div class="icon-container" id="iconContainer">
+    <!-- Іконки будуть додані через JS -->
+  </div>
+
+  <script>
+    // Список іконок — зміни під себе
+    const iconList = [
+      'folder.ico',
+      'game.ico',
+      'tools.ico',
+      'music.ico'
+    ];
+
+    const githubBaseURL = 'https://yourusername.github.io/icon-catalog/icons/'; // ← заміни на свій
+
+    const container = document.getElementById('iconContainer');
+
+    iconList.forEach(icon => {
+      const card = document.createElement('div');
+      card.className = 'icon-card';
+
+      const img = document.createElement('img');
+      img.src = githubBaseURL + icon;
+      img.alt = icon;
+
+      const btn = document.createElement('button');
+      btn.textContent = 'Встановити';
+      btn.className = 'install-btn';
+      btn.onclick = () => installIcon(icon);
+
+      card.appendChild(img);
+      card.appendChild(document.createElement('br'));
+      card.appendChild(document.createTextNode(icon));
+      card.appendChild(document.createElement('br'));
+      card.appendChild(btn);
+
+      container.appendChild(card);
+    });
+
+    function installIcon(iconName) {
+      const iconURL = githubBaseURL + iconName;
+
+      fetch('http://localhost:5000/download_icon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ icon_url: iconURL })
+      })
+      .then(res => res.json())
+      .then(data => alert(data.message))
+      .catch(err => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
+    }
+  </script>
+
+</body>
+</html>
