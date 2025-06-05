@@ -1,6 +1,30 @@
 {
   "social": [
     {
+      "name": "Icons8-instagram-256",
+      "src": "social/icons8-instagram-256.ico"
+    },
+    {
+      "name": "Icons8-instagram-480",
+      "src": "social/icons8-instagram-480.ico"
+    },
+    {
+      "name": "Icons8-instagram-500 (1)",
+      "src": "social/icons8-instagram-500 (1).ico"
+    },
+    {
+      "name": "Icons8-instagram-500 (2)",
+      "src": "social/icons8-instagram-500 (2).ico"
+    },
+    {
+      "name": "Icons8-instagram-500",
+      "src": "social/icons8-instagram-500.ico"
+    },
+    {
+      "name": "Icons8-instagram-512",
+      "src": "social/icons8-instagram-512.ico"
+    },
+    {
       "name": "Icons8-telegram-512",
       "src": "social/icons8-telegram-512.ico"
     },
@@ -45,12 +69,104 @@
     {
       "name": "Fly",
       "src": "browsers/fly.ico"
+    },
+    {
+      "name": "Icons8-chrome-400 (1)",
+      "src": "browsers/icons8-chrome-400 (1).ico"
+    },
+    {
+      "name": "Icons8-chrome-400",
+      "src": "browsers/icons8-chrome-400.ico"
+    },
+    {
+      "name": "Icons8-chrome-500",
+      "src": "browsers/icons8-chrome-500.ico"
+    },
+    {
+      "name": "Icons8-chrome-512 (1)",
+      "src": "browsers/icons8-chrome-512 (1).ico"
+    },
+    {
+      "name": "Icons8-chrome-512",
+      "src": "browsers/icons8-chrome-512.ico"
+    },
+    {
+      "name": "Icons8-opera-400",
+      "src": "browsers/icons8-opera-400.ico"
+    },
+    {
+      "name": "Icons8-opera-480",
+      "src": "browsers/icons8-opera-480.ico"
+    },
+    {
+      "name": "Icons8-opera-500",
+      "src": "browsers/icons8-opera-500.ico"
+    },
+    {
+      "name": "Icons8-opera-512",
+      "src": "browsers/icons8-opera-512.ico"
     }
   ],
   "games": [
     {
-      "name": "Terminal",
-      "src": "games/terminal.ico"
+      "name": "20d749bc05f47d2bd3026ce457dcfd8e",
+      "src": "games/20d749bc05f47d2bd3026ce457dcfd8e.ico"
+    },
+    {
+      "name": "58ee2794cc87707943624dc8db2ff5a0",
+      "src": "games/58ee2794cc87707943624dc8db2ff5a0.ico"
+    },
+    {
+      "name": "9191d7862c1dae7410fff400cc320cfa",
+      "src": "games/9191d7862c1dae7410fff400cc320cfa.ico"
+    },
+    {
+      "name": "940392f5f32a7ade1cc201767cf83e31",
+      "src": "games/940392f5f32a7ade1cc201767cf83e31.ico"
+    },
+    {
+      "name": "A71befbc9f1cef1b39e51bcc73ff395c",
+      "src": "games/a71befbc9f1cef1b39e51bcc73ff395c.ico"
+    },
+    {
+      "name": "B1b20d09041289e6c3fbb81850c5da54",
+      "src": "games/b1b20d09041289e6c3fbb81850c5da54.ico"
+    },
+    {
+      "name": "Bone lab",
+      "src": "games/bone lab.ico"
+    },
+    {
+      "name": "Bonela",
+      "src": "games/bonela.ico"
+    },
+    {
+      "name": "Bonelab",
+      "src": "games/bonelab.ico"
+    },
+    {
+      "name": "Bonlab",
+      "src": "games/bonlab.ico"
+    },
+    {
+      "name": "C01431c2e06ee8eaf5de2e9c9e05b9b8",
+      "src": "games/c01431c2e06ee8eaf5de2e9c9e05b9b8.ico"
+    },
+    {
+      "name": "Ds1",
+      "src": "games/ds1.ico"
+    },
+    {
+      "name": "Small spaces",
+      "src": "games/small spaces.ico"
+    },
+    {
+      "name": "Witch fire",
+      "src": "games/witch fire.ico"
+    },
+    {
+      "name": "Witchfire",
+      "src": "games/witchfire.ico"
     }
   ],
   "apps": [
@@ -73,6 +189,10 @@
     {
       "name": "Spotyif",
       "src": "apps/spotyif.ico"
+    },
+    {
+      "name": "Terminal",
+      "src": "apps/terminal.ico"
     },
     {
       "name": "Trello",
