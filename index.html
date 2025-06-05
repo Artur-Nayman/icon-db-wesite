@@ -6,23 +6,55 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #333446;
+      margin: 0;
+      padding-top: 100px; /* відступ зверху для navbar */
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #333446;
-      padding: 20px;
     }
 
+    .main-wrapper {
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #7F8CAA;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      padding: 15px 40px;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #e0e0e0;
+    }
+
+    /* Container with icons */
     .container {
       background-color: #7F8CAA;
       border-radius: 20px;
       padding: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 90%;
-      max-width: 1200px;
-      max-height: 90vh;
+      max-height: 80vh;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -42,16 +74,13 @@
     }
 
     .icon-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
       background-color: #f9f9f9;
+      border: 1px solid #ccc;
       border-radius: 10px;
       padding: 15px;
-      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
       width: 120px;
-      border: 1px solid #ccc;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .icon-card:hover {
@@ -67,11 +96,9 @@
     .icon-card p {
       margin: 10px 0 5px;
       font-size: 14px;
-      word-break: break-word;
     }
 
     .install-btn {
-      margin-top: 0.5rem;
       padding: 6px 10px;
       border: none;
       background-color: #007bff;
@@ -84,13 +111,28 @@
     .install-btn:hover {
       background-color: #0056b3;
     }
+
+    @media (max-width: 600px) {
+      .navbar {
+        padding: 10px 20px;
+        gap: 15px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Каталог іконок</h1>
-    <div class="icon-container" id="iconContainer">
-      <!-- JS додає іконки -->
+  <!-- Навбар -->
+  <nav class="navbar">
+    <a href="#">Каталог</a>
+    <a href="#">Завантажені</a>
+  </nav>
+
+  <div class="main-wrapper">
+    <div class="container">
+      <h1>Каталог іконок</h1>
+      <div class="icon-container" id="iconContainer">
+        <!-- JS додає іконки -->
+      </div>
     </div>
   </div>
 
@@ -102,7 +144,7 @@
       'terminal.ico'
     ];
 
-    const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/'; // ← заміни на свій
+    const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
 
     const container = document.getElementById('iconContainer');
 
