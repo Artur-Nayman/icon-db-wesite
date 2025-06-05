@@ -1,136 +1,130 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8" />
-<title>Вкладки з іконками</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #333446;
-    color: white;
-    margin: 0;
-    padding: 20px;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IconDB</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
 
-  .tabs {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
+    /* Навбар */
+    .navbar {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  .tab {
-    padding: 10px 20px;
-    background: #7F8CAA;
-    border-radius: 10px 10px 0 0;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.3s;
-  }
+    .navbar h1 {
+      margin: 0;
+      font-size: 20px;
+    }
 
-  .tab.active {
-    background: #0056b3;
-    font-weight: bold;
-  }
+    /* Вкладки */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      background-color: #eee;
+      padding: 10px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-  .tab-content {
-    background: #7F8CAA;
-    border-radius: 0 10px 10px 10px;
-    padding: 20px;
-    min-height: 200px;
-  }
+    .tab {
+      padding: 10px 20px;
+      background-color: #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-  .icon-card {
-    display: inline-block;
-    width: 100px;
-    margin: 10px;
-    background: #f9f9f9;
-    color: black;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-  }
+    .tab.active {
+      background-color: #bbb;
+    }
 
-  .icon-card img {
-    width: 50px;
-    height: 50px;
-  }
-</style>
+    /* Іконки */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .icon-wrapper {
+      text-align: center;
+    }
+
+    .icon-wrapper img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .icon-label {
+      margin-top: 5px;
+      font-size: 13px;
+    }
+  </style>
 </head>
 <body>
+  <!-- Навбар -->
+  <div class="navbar">
+    <h1>📁 База іконок</h1>
+  </div>
 
-<div class="tabs">
-  <div class="tab active" data-tab="social">Соціальні мережі</div>
-  <div class="tab" data-tab="browsers">Браузери</div>
-  <div class="tab" data-tab="games">Ігри</div>
-  <div class="tab" data-tab="apps">Популярні програми</div>
-</div>
+  <!-- Вкладки -->
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-category="social">Соціальні мережі</div>
+    <div class="tab" data-category="browsers">Браузери</div>
+    <div class="tab" data-category="games">Ігри</div>
+    <div class="tab" data-category="apps">Популярні програми</div>
+  </div>
 
-<div class="tab-content" id="tabContent">
-  <!-- Тут буде динамічний контент вкладок -->
-</div>
+  <!-- Іконки -->
+  <div class="icon-grid" id="iconGrid"></div>
 
-<script>
-  const tabs = document.querySelectorAll('.tab');
-  const tabContent = document.getElementById('tabContent');
+  <script>
+    let iconsData = {};
+    const iconGrid = document.getElementById('iconGrid');
+    const tabs = document.querySelectorAll('.tab');
 
-  // Дані іконок для кожної вкладки
-  const iconsData = {
-    social: [
-      {name: 'Telegram', src: 'icons/telegram.ico'},
-      {name: 'Facebook', src: 'icons/facebook.ico'},
-      {name: 'Instagram', src: 'icons/instagram.ico'},
-    ],
-    browsers: [
-      {name: 'Chrome', src: 'icons/chrome.ico'},
-      {name: 'Firefox', src: 'icons/firefox.ico'},
-      {name: 'Edge', src: 'icons/edge.ico'},
-    ],
-    games: [
-      {name: 'Minecraft', src: 'icons/minecraft.ico'},
-      {name: 'Fortnite', src: 'icons/fortnite.ico'},
-      {name: 'Among Us', src: 'icons/amongus.ico'},
-    ],
-    apps: [
-      {name: 'VS Code', src: 'icons/vscode.ico'},
-      {name: 'Spotify', src: 'icons/spotify.ico'},
-      {name: 'Slack', src: 'icons/slack.ico'},
-    ]
-  };
+    fetch('icons/icons.json')
+      .then(res => res.json())
+      .then(data => {
+        iconsData = data;
+        showIcons('social'); // стартова вкладка
+      });
 
-  function renderTab(tabKey) {
-    tabContent.innerHTML = ''; // очистити контент
-    const icons = iconsData[tabKey];
-    icons.forEach(icon => {
-      const card = document.createElement('div');
-      card.className = 'icon-card';
+    function showIcons(category) {
+      iconGrid.innerHTML = '';
+      if (!iconsData[category]) return;
 
-      const img = document.createElement('img');
-      img.src = icon.src;
-      img.alt = icon.name;
+      iconsData[category].forEach(icon => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'icon-wrapper';
+        wrapper.innerHTML = `
+          <img src="${icon.src}" alt="${icon.name}">
+          <div class="icon-label">${icon.name}</div>
+        `;
+        iconGrid.appendChild(wrapper);
+      });
+    }
 
-      const name = document.createElement('p');
-      name.textContent = icon.name;
-
-      card.appendChild(img);
-      card.appendChild(name);
-      tabContent.appendChild(card);
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelector('.tab.active')?.classList.remove('active');
+        tab.classList.add('active');
+        const category = tab.getAttribute('data-category');
+        showIcons(category);
+      });
     });
-  }
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Зняти активність з усіх вкладок
-      tabs.forEach(t => t.classList.remove('active'));
-      // Додати активність на клікнуту
-      tab.classList.add('active');
-      // Відобразити відповідний контент
-      renderTab(tab.dataset.tab);
-    });
-  });
-
-  // Показати контент першої вкладки за замовчуванням
-  renderTab('social');
-</script>
-
+  </script>
 </body>
 </html>
