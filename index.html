@@ -135,7 +135,8 @@
 
   <!-- Вкладки -->
   <div class="tabs" id="tabs">
-    <div class="tab active" data-category="social">Соціальні мережі</div>
+    <div class="tab active" data-category="All">Всі</div>
+    <div class="tab" data-category="social">Соціальні мережі</div>
     <div class="tab" data-category="browsers">Браузери</div>
     <div class="tab" data-category="games">Ігри</div>
     <div class="tab" data-category="apps">Популярні програми</div>
@@ -144,85 +145,100 @@
   <!-- Іконки -->
   <div class="icon-grid" id="iconGrid"></div>
 
-  <script>
-    const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
+<script>
+  const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
 
-    let iconsData = {};
-    let currentCategory = 'social';
+  let iconsData = {};
+  let currentCategory = 'social';
 
-    // Завантажуємо JSON
-    fetch(githubBaseURL + 'icons.json')
-      .then(res => res.json())
-      .then(data => {
-        iconsData = data;
-        renderIcons(currentCategory);
-      })
-      .catch(err => {
-        alert("❌ Не вдалося отримати список іконок.");
-        console.error(err);
-      });
-
-    // Функція для рендеру іконок певної категорії
-    function renderIcons(category) {
-      currentCategory = category;
-      const container = document.getElementById('iconGrid');
-      container.innerHTML = ''; // очистити перед рендером
-
-      if (!iconsData[category] || iconsData[category].length === 0) {
-        container.innerHTML = '<p style="text-align:center; width:100%;">Іконок не знайдено</p>';
-        return;
-      }
-
-      iconsData[category].forEach(icon => {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'icon-wrapper';
-
-        const img = document.createElement('img');
-        img.src = githubBaseURL + icon.src;
-        img.alt = icon.name;
-
-        const label = document.createElement('div');
-        label.className = 'icon-label';
-        label.textContent = icon.name;
-
-        const btn = document.createElement('button');
-        btn.className = 'install-btn';
-        btn.textContent = 'Встановити';
-        btn.onclick = () => installIcon(icon.src);
-
-        wrapper.appendChild(img);
-        wrapper.appendChild(label);
-        wrapper.appendChild(btn);
-
-        container.appendChild(wrapper);
-      });
-    }
-
-    // Кнопка Встановити
-    function installIcon(iconPath) {
-      const iconURL = githubBaseURL + iconPath;
-
-      fetch('http://localhost:5000/download_icon', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ icon_url: iconURL })
-      })
-      .then(res => res.json())
-      .then(data => alert(data.message))
-      .catch(() => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
-    }
-
-    // Обробка кліку по вкладках
-    document.getElementById('tabs').addEventListener('click', (e) => {
-      if (e.target.classList.contains('tab')) {
-        // Зняти активний з усіх
-        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-        // Додати активний до вибраної
-        e.target.classList.add('active');
-        // Показати іконки цієї категорії
-        renderIcons(e.target.dataset.category);
-      }
+  // Завантажуємо JSON
+  fetch(githubBaseURL + 'icons.json')
+    .then(res => res.json())
+    .then(data => {
+      iconsData = data;
+      renderIcons(currentCategory);
+    })
+    .catch(err => {
+      alert("❌ Не вдалося отримати список іконок.");
+      console.error(err);
     });
-  </script>
+
+  // Функція для рендеру іконок певної категорії
+  function renderIcons(category) {
+    currentCategory = category;
+    const container = document.getElementById('iconGrid');
+    container.innerHTML = ''; // Очистити перед рендером
+
+    let iconsToRender = [];
+
+    if (category === 'All') {
+      // Aggregate all icons from all categories
+      Object.keys(iconsData).forEach(key => {
+        if (key !== 'All') {
+          iconsToRender = iconsToRender.concat(iconsData[key]);
+        }
+      });
+    } else {
+      // Use the icons from the selected category
+      iconsToRender = iconsData[category] || [];
+    }
+
+    if (!iconsToRender || iconsToRender.length === 0) {
+      container.innerHTML = '<p style="text-align:center; width:100%;">Іконок не знайдено</p>';
+      return;
+    }
+
+    iconsToRender.forEach(icon => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'icon-wrapper';
+
+      const img = document.createElement('img');
+      img.src = githubBaseURL + icon.src;
+      img.alt = icon.name;
+
+      const label = document.createElement('div');
+      label.className = 'icon-label';
+      label.textContent = icon.name;
+
+      const btn = document.createElement('button');
+      btn.className = 'install-btn';
+      btn.textContent = 'Встановити';
+      btn.onclick = () => installIcon(icon.src);
+
+      wrapper.appendChild(img);
+      wrapper.appendChild(label);
+      wrapper.appendChild(btn);
+
+      container.appendChild(wrapper);
+    });
+  }
+
+  // Кнопка Встановити
+  function installIcon(iconPath) {
+    const iconURL = githubBaseURL + iconPath;
+
+    fetch('http://localhost:5000/download_icon', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ icon_url: iconURL })
+    })
+    .then(res => res.json())
+    .then(data => alert(data.message))
+    .catch(() => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
+  }
+
+  // Обробка кліку по вкладках
+  document.getElementById('tabs').addEventListener('click', (e) => {
+    if (e.target.classList.contains('tab')) {
+      // Зняти активний з усіх
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      // Додати активний до вибраної
+      e.target.classList.add('active');
+      // Показати іконки цієї категорії
+      renderIcons(e.target.dataset.category);
+    }
+  });
+</script>
+
 </body>
 </html>
