@@ -1,15 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Icon Search</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IconDB</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+
+    /* Навбар */
+    .navbar {
+      background-color: #333;
+      color: #fff;
+      padding: 0px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Блок з посиланнями праворуч */
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-link {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: #ddd;
+    }
+
+    /* Search container */
     .search-container {
       width: 100%;
       padding: 10px;
       box-sizing: border-box;
       text-align: center;
+      background-color: #eee;
     }
 
     .search-container input {
@@ -21,43 +57,114 @@
       box-sizing: border-box;
     }
 
+    /* Вкладки */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      background-color: #eee;
+      padding: 10px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      background-color: #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .tab:hover {
+      background-color: #ccc;
+    }
+
+    .tab.active {
+      background-color: #bbb;
+    }
+
+    /* Іконки */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+    }
+
     .icon-wrapper {
-      display: inline-block;
-      margin: 10px;
+      min-width: 120px;
       text-align: center;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .icon-wrapper:hover {
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+    }
+
+    .icon-wrapper img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
     }
 
     .icon-label {
       margin-top: 5px;
+      font-size: 13px;
+      word-break: break-word;
     }
 
+    /* Кнопка Встановити */
     .install-btn {
-      margin-top: 5px;
-      padding: 5px 10px;
-      background-color: #007BFF;
-      color: white;
+      margin-top: 6px;
+      font-size: 12px;
+      padding: 4px 8px;
       border: none;
-      border-radius: 5px;
+      border-radius: 4px;
+      background-color: #333;
+      color: white;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .install-btn:hover {
-      background-color: #0056b3;
+      background-color: #555;
     }
   </style>
 </head>
 <body>
-
-  <div id="tabs">
-    <button class="tab active" data-category="All">All</button>
-    <!-- Add other category buttons as needed -->
+  <!-- Навбар -->
+  <div class="navbar">
+    <h1>📁 База іконок</h1>
+    <div class="nav-links">
+      <a href="https://artur-nayman.github.io/icon-db-wesite/" class="nav-link">Каталог</a>
+      <a href="http://127.0.0.1:5000" class="nav-link">Завантажені</a>
+    </div>
   </div>
 
+  <!-- Вкладки -->
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-category="All">Всі</div>
+    <div class="tab" data-category="social">Соціальні мережі</div>
+    <div class="tab" data-category="browsers">Браузери</div>
+    <div class="tab" data-category="games">Ігри</div>
+    <div class="tab" data-category="apps">Популярні програми</div>
+  </div>
+
+  <!-- Пошук -->
   <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search icons...">
+    <input type="text" id="searchInput" placeholder="Пошук іконок...">
   </div>
 
-  <div id="iconGrid"></div>
+  <!-- Іконки -->
+  <div class="icon-grid" id="iconGrid"></div>
 
   <script>
     const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
@@ -65,7 +172,7 @@
     let iconsData = {};
     let currentCategory = 'All';
 
-    // Load JSON
+    // Завантажуємо JSON
     fetch(githubBaseURL + 'icons.json')
       .then(res => res.json())
       .then(data => {
@@ -77,11 +184,11 @@
         console.error(err);
       });
 
-    // Function to render icons of a specific category
+    // Функція для рендеру іконок певної категорії
     function renderIcons(category) {
       currentCategory = category;
       const container = document.getElementById('iconGrid');
-      container.innerHTML = ''; // Clear before rendering
+      container.innerHTML = ''; // Очистити перед рендером
 
       let iconsToRender = [];
 
@@ -127,7 +234,7 @@
       });
     }
 
-    // Install button
+    // Кнопка Встановити
     function installIcon(iconPath) {
       const iconURL = githubBaseURL + iconPath;
 
@@ -141,19 +248,19 @@
       .catch(() => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
     }
 
-    // Handle tab clicks
+    // Обробка кліку по вкладках
     document.getElementById('tabs').addEventListener('click', (e) => {
       if (e.target.classList.contains('tab')) {
-        // Remove active from all
+        // Зняти активний з усіх
         document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-        // Add active to the selected one
+        // Додати активний до вибраної
         e.target.classList.add('active');
-        // Show icons of this category
+        // Показати іконки цієї категорії
         renderIcons(e.target.dataset.category);
       }
     });
 
-    // Handle search input
+    // Обробка пошуку
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const searchTerm = e.target.value.toLowerCase();
       const icons = document.querySelectorAll('.icon-wrapper');
