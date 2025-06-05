@@ -1,244 +1,172 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IconDB</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Search</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f9f9f9;
-    }
-
-    /* Навбар */
-.navbar {
-  background-color: #333;
-  color: #fff;
-  padding: 0px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Блок з посиланнями праворуч */
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-link {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.nav-link:hover {
-  color: #ddd;
-}
-
-
-    /* Вкладки */
-    .tabs {
-      display: flex;
-      justify-content: center;
-      background-color: #eee;
+    .search-container {
+      width: 100%;
       padding: 10px;
-      gap: 10px;
-      flex-wrap: wrap;
+      box-sizing: border-box;
+      text-align: center;
     }
 
-    .tab {
-      padding: 10px 20px;
-      background-color: #ddd;
+    .search-container input {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ccc;
       border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      user-select: none;
-      transition: background-color 0.3s ease;
+      font-size: 16px;
+      box-sizing: border-box;
     }
 
-    .tab:hover {
-      background-color: #ccc;
-    }
-
-    .tab.active {
-      background-color: #bbb;
-    }
-
-    /* Іконки */
-.icon-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  max-width: 1000px;
-  margin: 0 auto 40px;
-}
-
-.icon-wrapper {
-  min-width: 120px;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
-  transition: box-shadow 0.2s ease;
-}
-
-
-    .icon-wrapper:hover {
-      box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
-    }
-
-    .icon-wrapper img {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
+    .icon-wrapper {
+      display: inline-block;
+      margin: 10px;
+      text-align: center;
     }
 
     .icon-label {
       margin-top: 5px;
-      font-size: 13px;
-      word-break: break-word;
     }
 
-    /* Кнопка Встановити */
     .install-btn {
-      margin-top: 6px;
-      font-size: 12px;
-      padding: 4px 8px;
-      border: none;
-      border-radius: 4px;
-      background-color: #333;
+      margin-top: 5px;
+      padding: 5px 10px;
+      background-color: #007BFF;
       color: white;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
 
     .install-btn:hover {
-      background-color: #555;
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <!-- Навбар -->
-<div class="navbar">
-  <h1>📁 База іконок</h1>
-  <div class="nav-links">
-    <a href="https://artur-nayman.github.io/icon-db-wesite/" class="nav-link">Каталог</a>
-    <a href="http://127.0.0.1:5000" class="nav-link">Завантажені</a>
-  </div>
-</div>
 
-  <!-- Вкладки -->
-  <div class="tabs" id="tabs">
-    <div class="tab active" data-category="All">Всі</div>
-    <div class="tab" data-category="social">Соціальні мережі</div>
-    <div class="tab" data-category="browsers">Браузери</div>
-    <div class="tab" data-category="games">Ігри</div>
-    <div class="tab" data-category="apps">Популярні програми</div>
+  <div id="tabs">
+    <button class="tab active" data-category="All">All</button>
+    <!-- Add other category buttons as needed -->
   </div>
 
-  <!-- Іконки -->
-  <div class="icon-grid" id="iconGrid"></div>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search icons...">
+  </div>
 
-<script>
-  const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
+  <div id="iconGrid"></div>
 
-  let iconsData = {};
-  let currentCategory = 'social';
+  <script>
+    const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
 
-  // Завантажуємо JSON
-  fetch(githubBaseURL + 'icons.json')
-    .then(res => res.json())
-    .then(data => {
-      iconsData = data;
-      renderIcons(currentCategory);
-    })
-    .catch(err => {
-      alert("❌ Не вдалося отримати список іконок.");
-      console.error(err);
+    let iconsData = {};
+    let currentCategory = 'All';
+
+    // Load JSON
+    fetch(githubBaseURL + 'icons.json')
+      .then(res => res.json())
+      .then(data => {
+        iconsData = data;
+        renderIcons(currentCategory);
+      })
+      .catch(err => {
+        alert("❌ Не вдалося отримати список іконок.");
+        console.error(err);
+      });
+
+    // Function to render icons of a specific category
+    function renderIcons(category) {
+      currentCategory = category;
+      const container = document.getElementById('iconGrid');
+      container.innerHTML = ''; // Clear before rendering
+
+      let iconsToRender = [];
+
+      if (category === 'All') {
+        // Aggregate all icons from all categories
+        Object.keys(iconsData).forEach(key => {
+          if (key !== 'All') {
+            iconsToRender = iconsToRender.concat(iconsData[key]);
+          }
+        });
+      } else {
+        // Use the icons from the selected category
+        iconsToRender = iconsData[category] || [];
+      }
+
+      if (!iconsToRender || iconsToRender.length === 0) {
+        container.innerHTML = '<p style="text-align:center; width:100%;">Іконок не знайдено</p>';
+        return;
+      }
+
+      iconsToRender.forEach(icon => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'icon-wrapper';
+
+        const img = document.createElement('img');
+        img.src = githubBaseURL + icon.src;
+        img.alt = icon.name;
+
+        const label = document.createElement('div');
+        label.className = 'icon-label';
+        label.textContent = icon.name;
+
+        const btn = document.createElement('button');
+        btn.className = 'install-btn';
+        btn.textContent = 'Встановити';
+        btn.onclick = () => installIcon(icon.src);
+
+        wrapper.appendChild(img);
+        wrapper.appendChild(label);
+        wrapper.appendChild(btn);
+
+        container.appendChild(wrapper);
+      });
+    }
+
+    // Install button
+    function installIcon(iconPath) {
+      const iconURL = githubBaseURL + iconPath;
+
+      fetch('http://localhost:5000/download_icon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ icon_url: iconURL })
+      })
+      .then(res => res.json())
+      .then(data => alert(data.message))
+      .catch(() => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
+    }
+
+    // Handle tab clicks
+    document.getElementById('tabs').addEventListener('click', (e) => {
+      if (e.target.classList.contains('tab')) {
+        // Remove active from all
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        // Add active to the selected one
+        e.target.classList.add('active');
+        // Show icons of this category
+        renderIcons(e.target.dataset.category);
+      }
     });
 
-  // Функція для рендеру іконок певної категорії
-  function renderIcons(category) {
-    currentCategory = category;
-    const container = document.getElementById('iconGrid');
-    container.innerHTML = ''; // Очистити перед рендером
+    // Handle search input
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const icons = document.querySelectorAll('.icon-wrapper');
 
-    let iconsToRender = [];
-
-    if (category === 'All') {
-      // Aggregate all icons from all categories
-      Object.keys(iconsData).forEach(key => {
-        if (key !== 'All') {
-          iconsToRender = iconsToRender.concat(iconsData[key]);
+      icons.forEach(icon => {
+        const iconName = icon.querySelector('.icon-label').textContent.toLowerCase();
+        if (iconName.includes(searchTerm)) {
+          icon.style.display = '';
+        } else {
+          icon.style.display = 'none';
         }
       });
-    } else {
-      // Use the icons from the selected category
-      iconsToRender = iconsData[category] || [];
-    }
-
-    if (!iconsToRender || iconsToRender.length === 0) {
-      container.innerHTML = '<p style="text-align:center; width:100%;">Іконок не знайдено</p>';
-      return;
-    }
-
-    iconsToRender.forEach(icon => {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'icon-wrapper';
-
-      const img = document.createElement('img');
-      img.src = githubBaseURL + icon.src;
-      img.alt = icon.name;
-
-      const label = document.createElement('div');
-      label.className = 'icon-label';
-      label.textContent = icon.name;
-
-      const btn = document.createElement('button');
-      btn.className = 'install-btn';
-      btn.textContent = 'Встановити';
-      btn.onclick = () => installIcon(icon.src);
-
-      wrapper.appendChild(img);
-      wrapper.appendChild(label);
-      wrapper.appendChild(btn);
-
-      container.appendChild(wrapper);
     });
-  }
-
-  // Кнопка Встановити
-  function installIcon(iconPath) {
-    const iconURL = githubBaseURL + iconPath;
-
-    fetch('http://localhost:5000/download_icon', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ icon_url: iconURL })
-    })
-    .then(res => res.json())
-    .then(data => alert(data.message))
-    .catch(() => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
-  }
-
-  // Обробка кліку по вкладках
-  document.getElementById('tabs').addEventListener('click', (e) => {
-    if (e.target.classList.contains('tab')) {
-      // Зняти активний з усіх
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-      // Додати активний до вибраної
-      e.target.classList.add('active');
-      // Показати іконки цієї категорії
-      renderIcons(e.target.dataset.category);
-    }
-  });
-</script>
-
+  </script>
 </body>
 </html>
