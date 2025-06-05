@@ -1,6 +1,10 @@
 {
   "social": [
     {
+      "name": "Facebook",
+      "src": "social/facebook.ico"
+    },
+    {
       "name": "Icons8-instagram-256",
       "src": "social/icons8-instagram-256.ico"
     },
@@ -41,6 +45,18 @@
       "src": "social/icons8-youtube-500.ico"
     },
     {
+      "name": "Instagram",
+      "src": "social/instagram.ico"
+    },
+    {
+      "name": "Meta",
+      "src": "social/meta.ico"
+    },
+    {
+      "name": "Pinterest",
+      "src": "social/pinterest.ico"
+    },
+    {
       "name": "Telefram-dark",
       "src": "social/telefram-dark.ico"
     },
@@ -59,6 +75,26 @@
     {
       "name": "Tg-dark-circle",
       "src": "social/tg-dark-circle.ico"
+    },
+    {
+      "name": "Threads",
+      "src": "social/threads.ico"
+    },
+    {
+      "name": "Tiktok",
+      "src": "social/tiktok.ico"
+    },
+    {
+      "name": "Twitch",
+      "src": "social/twitch.ico"
+    },
+    {
+      "name": "Twitter",
+      "src": "social/twitter.ico"
+    },
+    {
+      "name": "Whatsapp",
+      "src": "social/whatsapp.ico"
     },
     {
       "name": "Youtube",
