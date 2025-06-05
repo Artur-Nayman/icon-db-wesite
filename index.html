@@ -12,19 +12,33 @@
     }
 
     /* Навбар */
-    .navbar {
-      background-color: #333;
-      color: #fff;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    .navbar h1 {
-      margin: 0;
-      font-size: 20px;
-    }
+/* Блок з посиланнями праворуч */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #ddd;
+}
+
 
     /* Вкладки */
     .tabs {
@@ -111,9 +125,13 @@
 </head>
 <body>
   <!-- Навбар -->
-  <div class="navbar">
-    <h1>📁 База іконок</h1>
+<div class="navbar">
+  <h1>📁 База іконок</h1>
+  <div class="nav-links">
+    <a href="#" class="nav-link">Каталог</a>
+    <a href="#" class="nav-link">Завантажені</a>
   </div>
+</div>
 
   <!-- Вкладки -->
   <div class="tabs" id="tabs">
