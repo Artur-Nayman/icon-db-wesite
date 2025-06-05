@@ -136,12 +136,11 @@
     </div>
   </div>
 <script>
-const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
-
-fetch(githubBaseURL + 'icons.json')
-  .then(res => res.json())
+fetch('icons/icons.json')
+  .then(response => response.json())
   .then(iconList => {
     const container = document.getElementById('iconContainer');
+    const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
     iconList.forEach(icon => {
       const card = document.createElement('div');
       card.className = 'icon-card';
@@ -164,23 +163,8 @@ fetch(githubBaseURL + 'icons.json')
       container.appendChild(card);
     });
   })
-  .catch(err => {
-    alert("❌ Не вдалося отримати список іконок.");
-    console.error(err);
-  });
+  .catch(() => alert('❌ Не вдалося завантажити список іконок.'));
 
-function installIcon(iconName) {
-  const iconURL = githubBaseURL + iconName;
-
-  fetch('http://localhost:5000/download_icon', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ icon_url: iconURL })
-  })
-  .then(res => res.json())
-  .then(data => alert(data.message))
-  .catch(err => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
-}
 </script>
 
 
