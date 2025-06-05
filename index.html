@@ -2,152 +2,183 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IconDB</title>
-  <link rel="stylesheet" href="styles.css">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
       margin: 0;
-      padding: 0;
+      background-color: #f9f9f9;
     }
 
+    /* Навбар */
     .navbar {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    /* Вкладки */
+    .tabs {
       display: flex;
       justify-content: center;
-      background-color: #222;
-      padding: 10px 0;
+      background-color: #eee;
+      padding: 10px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .tab {
-      color: #ccc;
       padding: 10px 20px;
+      background-color: #ddd;
+      border-radius: 5px;
       cursor: pointer;
-      border: none;
-      background: none;
-      font-size: 16px;
-      transition: 0.2s;
+      font-weight: bold;
+      user-select: none;
+      transition: background-color 0.3s ease;
     }
 
-    .tab:hover,
+    .tab:hover {
+      background-color: #ccc;
+    }
+
     .tab.active {
-      color: #fff;
-      border-bottom: 2px solid #fff;
+      background-color: #bbb;
     }
 
+    /* Іконки */
     .icon-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
       gap: 20px;
       padding: 20px;
-      max-width: 1200px;
-      margin: auto;
+      max-width: 1000px;
+      margin: 0 auto 40px;
     }
 
     .icon-wrapper {
-      background: white;
+      text-align: center;
+      background-color: #fff;
       border-radius: 8px;
       padding: 10px;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .icon-wrapper:hover {
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
     }
 
     .icon-wrapper img {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 10px;
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
     }
 
     .icon-label {
-      font-size: 14px;
-      margin-bottom: 8px;
+      margin-top: 5px;
+      font-size: 13px;
+      word-break: break-word;
     }
 
+    /* Кнопка Встановити */
     .install-btn {
-      padding: 6px 12px;
-      background-color: #007bff;
-      color: white;
+      margin-top: 6px;
+      font-size: 12px;
+      padding: 4px 8px;
       border: none;
       border-radius: 4px;
-      font-size: 14px;
+      background-color: #333;
+      color: white;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .install-btn:hover {
-      background-color: #0056b3;
+      background-color: #555;
     }
   </style>
 </head>
 <body>
-
-  <!-- Навігація -->
+  <!-- Навбар -->
   <div class="navbar">
-    <button class="tab active" data-category="social">Соціальні мережі</button>
-    <button class="tab" data-category="browsers">Браузери</button>
-    <button class="tab" data-category="games">Ігри</button>
-    <button class="tab" data-category="apps">Програми</button>
+    <h1>📁 База іконок</h1>
   </div>
 
-  <!-- Контейнер для іконок -->
-  <div id="iconGrid" class="icon-grid"></div>
+  <!-- Вкладки -->
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-category="social">Соціальні мережі</div>
+    <div class="tab" data-category="browsers">Браузери</div>
+    <div class="tab" data-category="games">Ігри</div>
+    <div class="tab" data-category="apps">Популярні програми</div>
+  </div>
 
-  <!-- Скрипт -->
+  <!-- Іконки -->
+  <div class="icon-grid" id="iconGrid"></div>
+
   <script>
     const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
-    const iconGrid = document.getElementById('iconGrid');
-    const tabs = document.querySelectorAll('.tab');
-    let iconsData = {};
 
-    // Завантаження JSON
+    let iconsData = {};
+    let currentCategory = 'social';
+
+    // Завантажуємо JSON
     fetch(githubBaseURL + 'icons.json')
       .then(res => res.json())
       .then(data => {
         iconsData = data;
-        showIcons('social');
+        renderIcons(currentCategory);
       })
       .catch(err => {
         alert("❌ Не вдалося отримати список іконок.");
         console.error(err);
       });
 
-    function showIcons(category) {
-      iconGrid.innerHTML = '';
-      if (!iconsData[category]) return;
+    // Функція для рендеру іконок певної категорії
+    function renderIcons(category) {
+      currentCategory = category;
+      const container = document.getElementById('iconGrid');
+      container.innerHTML = ''; // очистити перед рендером
+
+      if (!iconsData[category] || iconsData[category].length === 0) {
+        container.innerHTML = '<p style="text-align:center; width:100%;">Іконок не знайдено</p>';
+        return;
+      }
 
       iconsData[category].forEach(icon => {
-        const card = document.createElement('div');
-        card.className = 'icon-wrapper';
+        const wrapper = document.createElement('div');
+        wrapper.className = 'icon-wrapper';
 
         const img = document.createElement('img');
         img.src = githubBaseURL + icon.src;
         img.alt = icon.name;
 
-        const name = document.createElement('div');
-        name.className = 'icon-label';
-        name.textContent = icon.name;
+        const label = document.createElement('div');
+        label.className = 'icon-label';
+        label.textContent = icon.name;
 
         const btn = document.createElement('button');
-        btn.textContent = 'Встановити';
         btn.className = 'install-btn';
+        btn.textContent = 'Встановити';
         btn.onclick = () => installIcon(icon.src);
 
-        card.appendChild(img);
-        card.appendChild(name);
-        card.appendChild(btn);
-        iconGrid.appendChild(card);
+        wrapper.appendChild(img);
+        wrapper.appendChild(label);
+        wrapper.appendChild(btn);
+
+        container.appendChild(wrapper);
       });
     }
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelector('.tab.active')?.classList.remove('active');
-        tab.classList.add('active');
-        const category = tab.getAttribute('data-category');
-        showIcons(category);
-      });
-    });
-
+    // Кнопка Встановити
     function installIcon(iconPath) {
       const iconURL = githubBaseURL + iconPath;
 
@@ -158,11 +189,20 @@
       })
       .then(res => res.json())
       .then(data => alert(data.message))
-      .catch(err => {
-        alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена.");
-        console.error(err);
-      });
+      .catch(() => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
     }
+
+    // Обробка кліку по вкладках
+    document.getElementById('tabs').addEventListener('click', (e) => {
+      if (e.target.classList.contains('tab')) {
+        // Зняти активний з усіх
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        // Додати активний до вибраної
+        e.target.classList.add('active');
+        // Показати іконки цієї категорії
+        renderIcons(e.target.dataset.category);
+      }
+    });
   </script>
 </body>
 </html>
