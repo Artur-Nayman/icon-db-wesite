@@ -18,7 +18,8 @@ for category in CATEGORIES:
         if filename.lower().endswith('.ico'):
             icons.append({
                 'name': os.path.splitext(filename)[0].capitalize(),
-                'src': f'{BASE_DIR}/{category}/{filename}'
+                # Ось тут прибираємо BASE_DIR, щоб не було "icons/icons/..."
+                'src': f'{category}/{filename}'
             })
 
     data[category] = icons

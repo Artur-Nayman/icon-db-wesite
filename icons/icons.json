@@ -2,69 +2,69 @@
   "social": [
     {
       "name": "Icons8-telegram-512",
-      "src": "icons/social/icons8-telegram-512.ico"
+      "src": "social/icons8-telegram-512.ico"
     },
     {
       "name": "Telefram-dark",
-      "src": "icons/social/telefram-dark.ico"
+      "src": "social/telefram-dark.ico"
     },
     {
       "name": "Telegram (2)",
-      "src": "icons/social/telegram (2).ico"
+      "src": "social/telegram (2).ico"
     },
     {
       "name": "Telegram-minimalistic",
-      "src": "icons/social/telegram-minimalistic.ico"
+      "src": "social/telegram-minimalistic.ico"
     },
     {
       "name": "Telegram",
-      "src": "icons/social/telegram.ico"
+      "src": "social/telegram.ico"
     },
     {
       "name": "Tg-dark-circle",
-      "src": "icons/social/tg-dark-circle.ico"
+      "src": "social/tg-dark-circle.ico"
     },
     {
       "name": "Youtube",
-      "src": "icons/social/youtube.ico"
+      "src": "social/youtube.ico"
     }
   ],
   "browsers": [
     {
       "name": "Fly",
-      "src": "icons/browsers/fly.ico"
+      "src": "browsers/fly.ico"
     }
   ],
   "games": [
     {
       "name": "Terminal",
-      "src": "icons/games/terminal.ico"
+      "src": "games/terminal.ico"
     }
   ],
   "apps": [
     {
       "name": "Notes",
-      "src": "icons/apps/notes.ico"
+      "src": "apps/notes.ico"
     },
     {
       "name": "Nvdia",
-      "src": "icons/apps/nvdia.ico"
+      "src": "apps/nvdia.ico"
     },
     {
       "name": "Settings",
-      "src": "icons/apps/settings.ico"
+      "src": "apps/settings.ico"
     },
     {
       "name": "Somethong",
-      "src": "icons/apps/somethong.ico"
+      "src": "apps/somethong.ico"
     },
     {
       "name": "Spotyif",
-      "src": "icons/apps/spotyif.ico"
+      "src": "apps/spotyif.ico"
     },
     {
       "name": "Trello",
-      "src": "icons/apps/trello.ico"
+      "src": "apps/trello.ico"
     }
   ]
 }
