@@ -1,172 +1,136 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <title>Каталог іконок</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #333446;
-      margin: 0;
-      padding-top: 100px; /* відступ зверху для navbar */
-      display: flex;
-      justify-content: center;
-    }
+<meta charset="UTF-8" />
+<title>Вкладки з іконками</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #333446;
+    color: white;
+    margin: 0;
+    padding: 20px;
+  }
 
-    .main-wrapper {
-      width: 100%;
-      max-width: 1200px;
-      padding: 0 20px;
-      box-sizing: border-box;
-    }
+  .tabs {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
 
-    /* Navbar */
-    .navbar {
-      position: fixed;
-      top: 0px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #7F8CAA;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-      padding: 15px 40px;
-      display: flex;
-      gap: 30px;
-      justify-content: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
+  .tab {
+    padding: 10px 20px;
+    background: #7F8CAA;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s;
+  }
 
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-      transition: color 0.3s;
-    }
+  .tab.active {
+    background: #0056b3;
+    font-weight: bold;
+  }
 
-    .navbar a:hover {
-      color: #e0e0e0;
-    }
+  .tab-content {
+    background: #7F8CAA;
+    border-radius: 0 10px 10px 10px;
+    padding: 20px;
+    min-height: 200px;
+  }
 
-    /* Container with icons */
-    .container {
-      background-color: #7F8CAA;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      max-height: 80vh;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
+  .icon-card {
+    display: inline-block;
+    width: 100px;
+    margin: 10px;
+    background: #f9f9f9;
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+  }
 
-    h1 {
-      text-align: center;
-      color: white;
-      margin-bottom: 20px;
-    }
-
-    .icon-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .icon-card {
-      background-color: #f9f9f9;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 15px;
-      text-align: center;
-      width: 120px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .icon-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .icon-card img {
-      width: 50px;
-      height: 50px;
-    }
-
-    .icon-card p {
-      margin: 10px 0 5px;
-      font-size: 14px;
-    }
-
-    .install-btn {
-      padding: 6px 10px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .install-btn:hover {
-      background-color: #0056b3;
-    }
-
-    @media (max-width: 600px) {
-      .navbar {
-        padding: 10px 20px;
-        gap: 15px;
-      }
-    }
-  </style>
+  .icon-card img {
+    width: 50px;
+    height: 50px;
+  }
+</style>
 </head>
 <body>
-  <!-- Навбар -->
-  <nav class="navbar">
-    <a href="https://artur-nayman.github.io/icon-db-wesite/">Каталог</a>
-    <a href="http://127.0.0.1:5000">Завантажені</a>
-  </nav>
 
-  <div class="main-wrapper">
-    <div class="container">
-      <h1>Каталог іконок</h1>
-      <div class="icon-container" id="iconContainer">
-        <!-- JS додає іконки -->
-      </div>
-    </div>
-  </div>
+<div class="tabs">
+  <div class="tab active" data-tab="social">Соціальні мережі</div>
+  <div class="tab" data-tab="browsers">Браузери</div>
+  <div class="tab" data-tab="games">Ігри</div>
+  <div class="tab" data-tab="apps">Популярні програми</div>
+</div>
+
+<div class="tab-content" id="tabContent">
+  <!-- Тут буде динамічний контент вкладок -->
+</div>
+
 <script>
-fetch('icons/icons.json')
-  .then(response => response.json())
-  .then(iconList => {
-    const container = document.getElementById('iconContainer');
-    const githubBaseURL = 'https://artur-nayman.github.io/icon-db-wesite/icons/';
-    iconList.forEach(icon => {
+  const tabs = document.querySelectorAll('.tab');
+  const tabContent = document.getElementById('tabContent');
+
+  // Дані іконок для кожної вкладки
+  const iconsData = {
+    social: [
+      {name: 'Telegram', src: 'icons/telegram.ico'},
+      {name: 'Facebook', src: 'icons/facebook.ico'},
+      {name: 'Instagram', src: 'icons/instagram.ico'},
+    ],
+    browsers: [
+      {name: 'Chrome', src: 'icons/chrome.ico'},
+      {name: 'Firefox', src: 'icons/firefox.ico'},
+      {name: 'Edge', src: 'icons/edge.ico'},
+    ],
+    games: [
+      {name: 'Minecraft', src: 'icons/minecraft.ico'},
+      {name: 'Fortnite', src: 'icons/fortnite.ico'},
+      {name: 'Among Us', src: 'icons/amongus.ico'},
+    ],
+    apps: [
+      {name: 'VS Code', src: 'icons/vscode.ico'},
+      {name: 'Spotify', src: 'icons/spotify.ico'},
+      {name: 'Slack', src: 'icons/slack.ico'},
+    ]
+  };
+
+  function renderTab(tabKey) {
+    tabContent.innerHTML = ''; // очистити контент
+    const icons = iconsData[tabKey];
+    icons.forEach(icon => {
       const card = document.createElement('div');
       card.className = 'icon-card';
 
       const img = document.createElement('img');
-      img.src = githubBaseURL + icon;
-      img.alt = icon;
+      img.src = icon.src;
+      img.alt = icon.name;
 
       const name = document.createElement('p');
-      name.textContent = icon;
-
-      const btn = document.createElement('button');
-      btn.textContent = 'Встановити';
-      btn.className = 'install-btn';
-      btn.onclick = () => installIcon(icon);
+      name.textContent = icon.name;
 
       card.appendChild(img);
       card.appendChild(name);
-      card.appendChild(btn);
-      container.appendChild(card);
+      tabContent.appendChild(card);
     });
-  })
-  .catch(() => alert('❌ Не вдалося завантажити список іконок.'));
+  }
 
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Зняти активність з усіх вкладок
+      tabs.forEach(t => t.classList.remove('active'));
+      // Додати активність на клікнуту
+      tab.classList.add('active');
+      // Відобразити відповідний контент
+      renderTab(tab.dataset.tab);
+    });
+  });
+
+  // Показати контент першої вкладки за замовчуванням
+  renderTab('social');
 </script>
-
 
 </body>
 </html>
