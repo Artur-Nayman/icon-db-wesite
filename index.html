@@ -141,30 +141,30 @@
   </style>
 </head>
 <body>
-  <!-- Навбар -->
+  <!-- Navbar -->
   <div class="navbar">
-    <h1>📁 База іконок</h1>
+    <h1>📁 Icon Database</h1>
     <div class="nav-links">
-      <a href="https://artur-nayman.github.io/icon-db-wesite/" class="nav-link">Каталог</a>
-      <a href="http://127.0.0.1:5000" class="nav-link">Завантажені</a>
+      <a href="https://artur-nayman.github.io/icon-db-wesite/" class="nav-link">Catalog</a>
+      <a href="http://127.0.0.1:5000" class="nav-link">Downloaded</a>
     </div>
   </div>
 
-  <!-- Вкладки -->
+  <!-- Tabs -->
   <div class="tabs" id="tabs">
-    <div class="tab active" data-category="All">Всі</div>
-    <div class="tab" data-category="social">Соціальні мережі</div>
-    <div class="tab" data-category="browsers">Браузери</div>
-    <div class="tab" data-category="games">Ігри</div>
-    <div class="tab" data-category="apps">Популярні програми</div>
+    <div class="tab active" data-category="All">All</div>
+    <div class="tab" data-category="social">Social Media</div>
+    <div class="tab" data-category="browsers">Browsers</div>
+    <div class="tab" data-category="games">Games</div>
+    <div class="tab" data-category="apps">Popular Apps</div>
   </div>
 
-  <!-- Пошук -->
+  <!-- Search -->
   <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Пошук іконок...">
+    <input type="text" id="searchInput" placeholder="Search icons...">
   </div>
 
-  <!-- Іконки -->
+  <!-- Icons -->
   <div class="icon-grid" id="iconGrid"></div>
 
   <script>
@@ -173,7 +173,7 @@
     let iconsData = {};
     let currentCategory = 'All';
 
-    // Завантажуємо JSON
+    // Load JSON
     fetch(githubBaseURL + 'icons.json')
       .then(res => res.json())
       .then(data => {
@@ -181,15 +181,15 @@
         renderIcons(currentCategory);
       })
       .catch(err => {
-        alert("❌ Не вдалося отримати список іконок.");
+        alert("❌ Failed to load icon list.");
         console.error(err);
       });
 
-    // Функція для рендеру іконок певної категорії
+    // Function to render icons of a specific category
     function renderIcons(category) {
       currentCategory = category;
       const container = document.getElementById('iconGrid');
-      container.innerHTML = ''; // Очистити перед рендером
+      container.innerHTML = ''; // Clear before rendering
 
       let iconsToRender = [];
 
@@ -206,7 +206,7 @@
       }
 
       if (!iconsToRender || iconsToRender.length === 0) {
-        container.innerHTML = '<p style="text-align:center; width:100%;">Іконок не знайдено</p>';
+        container.innerHTML = '<p style="text-align:center; width:100%;">No icons found</p>';
         return;
       }
 
@@ -224,7 +224,7 @@
 
         const btn = document.createElement('button');
         btn.className = 'install-btn';
-        btn.textContent = 'Встановити';
+        btn.textContent = 'Install';
         btn.onclick = () => installIcon(icon.src);
 
         wrapper.appendChild(img);
@@ -235,7 +235,7 @@
       });
     }
 
-    // Кнопка Встановити
+    // Install button
     function installIcon(iconPath) {
       const iconURL = githubBaseURL + iconPath;
 
@@ -246,22 +246,22 @@
       })
       .then(res => res.json())
       .then(data => alert(data.message))
-      .catch(() => alert("❌ Не вдалося підключитися до локального додатку.\nМожливо, Flask-програма не запущена."));
+      .catch(() => alert("❌ Could not connect to the local app.\nPerhaps the Flask app is not running."));
     }
 
-    // Обробка кліку по вкладках
+    // Handle tab click
     document.getElementById('tabs').addEventListener('click', (e) => {
       if (e.target.classList.contains('tab')) {
-        // Зняти активний з усіх
+        // Remove active from all tabs
         document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-        // Додати активний до вибраної
+        // Add active to clicked tab
         e.target.classList.add('active');
-        // Показати іконки цієї категорії
+        // Show icons of the selected category
         renderIcons(e.target.dataset.category);
       }
     });
 
-    // Обробка пошуку
+    // Handle search
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const searchTerm = e.target.value.toLowerCase();
       const icons = document.querySelectorAll('.icon-wrapper');

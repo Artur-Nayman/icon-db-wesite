@@ -1,7 +1,7 @@
 import os
 import json
 from PIL import Image
-# Категорії, які відповідають назвам вкладок і папок
+
 CATEGORIES = ['social', 'browsers', 'games', 'apps']
 BASE_DIR = 'icons'
 OUTPUT_FILE = os.path.join(BASE_DIR, 'icons.json')
