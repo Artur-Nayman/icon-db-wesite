@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Інструкція — Icon Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+
+    /* Навбар */
+    .navbar {
+      height: 70px;
+      background-color: #333;
+      color: #fff;
+      padding: 0px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-link {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: #ddd;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+
+    ol, ul {
+      margin-left: 20px;
+    }
+
+    pre {
+      background-color: #eee;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+
+    a {
+      color: #333;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #555;
+    }
+
+    .btn-back {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div><strong>Icon Manager</strong></div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Головна</a>
+      <a href="/instructions" class="nav-link">Інструкція</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <h1>🛠️ Як користуватись Icon Manager</h1>
+    <hr>
+
+    <h2>📥 Встановлення</h2>
+    <ol>
+      <li>Скачай .exe з <a href="https://github.com/Artur-Nayman/icon-manager-flask/releases" target="_blank">GitHub Releases</a></li>
+      <li>Або вручну:
+        <ul>
+          <li><code>git clone https://github.com/Artur-Nayman/icon-manager-flask.git</code></li>
+          <li><code>cd icon-manager-flask</code></li>
+          <li><code>pip install -r requirements.txt</code></li>
+          <li><code>python app.py</code></li>
+          <li>Відкрий у браузері: <a href="http://localhost:5000" target="_blank">localhost:5000</a></li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2>🖱️ Як користуватись</h2>
+    <ol>
+      <li>Відкрий застосунок у браузері.</li>
+      <li>Знайди потрібну іконку (через вкладки або пошук).</li>
+      <li>Натисни кнопку <strong>Install</strong>.</li>
+      <li>Обери ярлик з робочого столу.</li>
+      <li>Натисни <strong>Apply</strong>, щоб змінити іконку.</li>
+    </ol>
+
+    <h2>⚙️ Налаштування</h2>
+    <p>У <code>config.py</code> можна змінити шляхи:</p>
+    <pre><code>icon_directory = os.path.join(base_path, 'static', 'icons')
+desktop_path = get_desktop_path()</code></pre>
+
+    <h2>ℹ️ Примітки</h2>
+    <ul>
+      <li>Працює лише на Windows</li>
+      <li>Іконки мають бути у форматі <code>.ico</code></li>
+      <li>Перевір, чи існує папка <code>static/icons/</code></li>
+    </ul>
+
+    <h2>💬 Зворотній зв’язок</h2>
+    <p>Залишай побажання або повідомлення про помилки на <a href="https://github.com/Artur-Nayman/icon-manager-flask/issues" target="_blank">GitHub Issues</a></p>
+
+    <a href="/" class="btn-back">← Назад на головну</a>
+  </div>
+</body>
+</html>
