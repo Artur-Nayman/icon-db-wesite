@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Інструкція — Icon Manager</title>
+  <title>Instructions — Icon Database</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -10,7 +10,6 @@
       background-color: #f9f9f9;
     }
 
-    /* Навбар */
     .navbar {
       height: 70px;
       background-color: #333;
@@ -88,7 +87,8 @@
   </style>
 </head>
 <body>
-    <div class="navbar">
+
+  <div class="navbar">
     <h1>📁 Icon Database</h1>
     <div class="nav-links">
       <a href="https://artur-nayman.github.io/icon-db-wesite/" class="nav-link">Catalog</a>
@@ -98,48 +98,46 @@
   </div>
 
   <div class="content">
-    <h1>🛠️ Як користуватись Icon Manager</h1>
+    <h1>🛠️ How to Use Icon Database</h1>
     <hr>
 
-    <h2>📥 Встановлення</h2>
+    <h2>📦 Installation</h2>
     <ol>
-      <li>Скачай .exe з <a href="https://github.com/Artur-Nayman/icon-manager-flask/releases" target="_blank">GitHub Releases</a></li>
-      <li>Або вручну:
+      <li>Download the latest release from <a href="https://github.com/Artur-Nayman/icon-manager-flask/releases" target="_blank">GitHub Releases</a></li>
+      <li>Or install manually:
         <ul>
           <li><code>git clone https://github.com/Artur-Nayman/icon-manager-flask.git</code></li>
           <li><code>cd icon-manager-flask</code></li>
           <li><code>pip install -r requirements.txt</code></li>
           <li><code>python app.py</code></li>
-          <li>Відкрий у браузері: <a href="http://localhost:5000" target="_blank">localhost:5000</a></li>
+          <li>Open <a href="http://127.0.0.1:5000" target="_blank">localhost:5000</a> in your browser</li>
         </ul>
       </li>
     </ol>
 
-    <h2>🖱️ Як користуватись</h2>
+    <h2>🧭 Usage</h2>
     <ol>
-      <li>Відкрий застосунок у браузері.</li>
-      <li>Знайди потрібну іконку (через вкладки або пошук).</li>
-      <li>Натисни кнопку <strong>Install</strong>.</li>
-      <li>Обери ярлик з робочого столу.</li>
-      <li>Натисни <strong>Apply</strong>, щоб змінити іконку.</li>
+      <li>Open the web app in your browser.</li>
+      <li>Search for an icon using the tabs or the search bar.</li>
+      <li>Click the <strong>Install</strong> button under the icon.</li>
+      <li>Select the shortcut (.lnk file) on your desktop.</li>
+      <li>Click <strong>Apply</strong> to change the icon.</li>
     </ol>
 
-    <h2>⚙️ Налаштування</h2>
-    <p>У <code>config.py</code> можна змінити шляхи:</p>
+    <h2>⚙️ Configuration</h2>
+    <p>Edit <code>config.py</code> to change paths if needed:</p>
     <pre><code>icon_directory = os.path.join(base_path, 'static', 'icons')
 desktop_path = get_desktop_path()</code></pre>
 
-    <h2>ℹ️ Примітки</h2>
+    <h2>ℹ️ Notes</h2>
     <ul>
-      <li>Працює лише на Windows</li>
-      <li>Іконки мають бути у форматі <code>.ico</code></li>
-      <li>Перевір, чи існує папка <code>static/icons/</code></li>
+      <li>Works on Windows only</li>
+      <li>Icons must be in <code>.ico</code> format</li>
+      <li>Ensure <code>static/icons/</code> folder exists</li>
     </ul>
 
-    <h2>💬 Зворотній зв’язок</h2>
-    <p>Залишай побажання або повідомлення про помилки на <a href="https://github.com/Artur-Nayman/icon-manager-flask/issues" target="_blank">GitHub Issues</a></p>
-
-    <a href="/" class="btn-back">← Назад на головну</a>
+    <h2>💬 Feedback</h2>
+    <p>Report issues or leave suggestions on <a href="https://github.com/Artur-Nayman/icon-manager-flask/issues" target="_blank">GitHub Issues</a></p>
   </div>
 </body>
 </html>
